@@ -1,6 +1,6 @@
 import config
 import requests
-
+import json
 
 class Connection():
     def __init__(self):
@@ -9,7 +9,7 @@ class Connection():
     def post(self, url, payload):
         end_point = self.base_url + url
         try:
-            r = requests.post(end_point, data=payload)
+            r = requests.post(end_point, data=json.dumps(payload))
             if r.status_code == requests.codes.ok:
                 return r.json()
             else:

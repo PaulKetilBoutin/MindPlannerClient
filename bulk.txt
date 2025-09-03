@@ -1,0 +1,4 @@
+add_next_action "do a class for camera sensor" "do a class for camera sensor for scampi" 15 4 1
+add_next_action "do a class for temp sensor" "do a class for temp sensor for scampi" 20 4 1
+add_next_action "take a german class with volkhorschule" "go there and register" 15 7 2
+add_next_action "read doc about scampi" "find and read the doc about scampi specs" 15 8 1
