@@ -1,4 +1,14 @@
-add_next_action "do a class for camera sensor" "do a class for camera sensor for scampi" 15 4 1
-add_next_action "do a class for temp sensor" "do a class for temp sensor for scampi" 20 4 1
-add_next_action "take a german class with volkhorschule" "go there and register" 15 7 2
-add_next_action "read doc about scampi" "find and read the doc about scampi specs" 15 8 1
+add_next_action "do a class for camera sensor" "do a class for camera sensor for scampi" 15 1 2
+add_next_action "do a class for temp sensor" "do a class for temp sensor for scampi" 20 1 2
+add_next_action "take a german class with volkhorschule" "go there and register" 15 2 3
+add_next_action "read doc about scampi" "find and read the doc about scampi specs" 15 1 2
+add_next_action "Faire les comptes finaux pour appartements" "excel google drive" 15 1 8
+add_next_action "Préparer les excel de debt" "excel google drive" 15 1 8
+add_next_action "Faire les comptes finaux pour appartements" "excel google drive" 15 1 8
+add_next_action "Prendre rdv pour la klinik sana" "Aller sur wrbsite et check comment amneldung" 15 1 1
+add_next_action "Passer en soundcloud pro payé" "Aller sur soundcloud terenord & faire les démarchec pour monétiser" 20 4 4
+add_next_action "Poster sur youtube les dernières tracks" "Aller sur bandcamp check les titres pas présent sur le youtube puis add" 20 4 4
+add_next_action "Préparer le mail compilation spatiale pour les artistes terenor" "Aller sur chatgpt pour prép un mail pour le spataile musique" 20 4 4
+add_next_action "Préparer le conseil d'administration pour MARS association" "Aller sur chatgpt et prépare les docs pour conseil adm" 20 4 5
+add_next_action "Check optimal clear panthéon jungle" "Trouver meilleur ressource pour panthéon jungle clearing" 20 3 7
+add_next_action "Check couts mini fourniture appartements st cast" "Recherche sur internet pour meubler st cast, update excel appartements" 15 4 8

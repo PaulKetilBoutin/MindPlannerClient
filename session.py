@@ -7,6 +7,8 @@ class Session():
     currentTask = None
     currentMotiv = 0
     dailysDone = False
+    todayChores = []
+    choresDone = False
     motivVariations = []
     tasksDone = []
     tasksAvailable = []
@@ -34,12 +36,14 @@ class Session():
             return False
         return True
 
-    def dailysDone(self):
+    def setDailysDone(self):
         self.dailysDone = True
 
     def addTasksToQueue(self, payload):
         for i in payload:
+            print(i)
             self.tasksAvailable.append(Task(i))
+        print(self.tasksAvailable)
 
     def getNextTask(self):
         maxi = len(self.tasksAvailable) - 1
@@ -48,6 +52,8 @@ class Session():
     def taskDone(self):
         self.proudMetter += self.currentTask.motivationValue
         self.tasksDone.append(self.currentTask)
+        check = self.conn.put("/nextAction/"+str(self.currentTask.id))
+        if check[0] == False: return False
         for i in self.tasksAvailable:
             if i.id == self.currentTask.id:
                 self.tasksAvailable.remove(i)
