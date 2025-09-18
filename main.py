@@ -22,10 +22,12 @@ def get_dailys(payload = {}):
     res = conn.get("/dailyQuests/")
     chores = conn.get("/todayChores/")
     if res[0]:
-        print(res)
+        for i in res[1]:
+            print(i)
     if chores[0]:
         currentSession.todayChores = chores[1]
-        print(chores)
+        for i in chores[1]:
+            print(i)
 
 def dailys_done(payload = []):
     print("Congrats !")
