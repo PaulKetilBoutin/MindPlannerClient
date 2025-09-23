@@ -1,4 +1,3 @@
-import json
 import random
 
 class Task():
@@ -14,9 +13,8 @@ class Task():
 
 
     def prettyPrint(self):
-        print("\n\nCurrent Task:", self.title)
+        print("\nCurrent Task:", self.title)
         print("\nDesc:", self.desc)
-        print("\n\nDone:", self.done)
         print("\n\nMotivation Value:", self.motivationValue)
         print("\n\nId:", self.id)
         print("\n\nOpenCycle Id:", self.openCycleId)

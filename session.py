@@ -18,6 +18,9 @@ class Session():
     def __init__(self, conn):
         self.sessionBegin = datetime.now().strftime('%c')
         self.conn = conn
+        tmp = conn.get("/openCycle/")
+        if tmp[0]:
+            self.openCyles = tmp[1]
 
     def cleaningUp(self):
         print("Inside the cleaningUp of Session")

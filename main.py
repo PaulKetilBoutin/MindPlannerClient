@@ -5,7 +5,6 @@ from task import Task
 import webbrowser
 from time import sleep
 
-
 conn = Connection()
 currentSession = Session(conn)
 
@@ -43,7 +42,7 @@ def dailys_done(payload = []):
         print("Http status code:", tmp[1], tmp)
 
 
-def get_next_action(payload = {}):
+def get_next_action(*payload):
     if currentSession.currentTask != None:
         print("Previous action is not done yet.")
         currentSession.currentTask.prettyPrint()
@@ -51,14 +50,12 @@ def get_next_action(payload = {}):
     if len(currentSession.tasksAvailable) != 0:
         task = currentSession.getNextTask()
     else:
-        res = conn.get('/nextAction/', {"motivation_mini": payload})
-        print(res)
+        res = conn.get('/nextAction/', {"motivation_mini": payload[0]})
         if res[0] == False:
             print("Next action list Empty.")
             return False
         currentSession.addTasksToQueue(res[1])
         task = Task.chooseNextAction(res[1])
-        print(task)
     if task:
         if currentSession.updateCurrentTask(task):
             task.prettyPrint()
@@ -116,10 +113,15 @@ def add_open_cycle(title, endTimeStamp = None):
             return False
 
 def list_open_cycle(payload = []):
-    res = conn.get("/openCycle/")
-    if res[0]:
-        for i in res[1]:
-            print(i)
+    if len(currentSession.openCyles) != 0:
+        for i in currentSession.openCyles:
+            print(i['id'], i['title'])
+    else:
+        res = conn.get("/openCycle/")
+        if res[0]:
+            currentSession.openCyles = res[1]
+            for i in res[1]:
+                print(i['id'], i['title'])
 
 def take_a_break(payload = []):
     RdFile = webbrowser.open(r'https://randomcatgifs.com')
@@ -135,6 +137,12 @@ def add_chores(title, frequency, context = "", lastTime = 0):
         print("Http status code:", res[1])
         return False
 
+def greetings():
+    print("Hello !")
+    print("Current open Cycles:")
+    for i in currentSession.openCyles:
+        print(i['id'], i['title'])
+
 commands = {"dailys": {"args_required": "0","funct": get_dailys,"help": "\nUsage: dailys\n\nDesc: Asking for the list of dailys with estimated time of accomplishement for each task, when completed you can type 'dailys done'.\n"},
             "dailys_done": {"args_required": "0", "funct": dailys_done, "help": "\nUsage: dailys_done\nDesc: If you have done your dailys quests and your daily chores !\n"},
             "what_to_do": {"args_required": "12","funct": get_next_action, "help": "\nUsage: what_to_do motivation_level time_available\n\nmotivation_level: out of 10\ntime_available: in minutes\n\ndesc: what_to_do followed by a motivation level (out of 10) and a duration (optional, in min) will give you the nextAction needed randomly from the different Open Cycles considering the motivation level.\n"},
@@ -146,7 +154,8 @@ commands = {"dailys": {"args_required": "0","funct": get_dailys,"help": "\nUsage
             "add_open_cycle": {"args_required": "12", "funct": add_open_cycle, "help": "\nUsage: add_open_cycle title end_time_stamp(opt)\n\nDesc: adds an open cycle to the list"},
             "list_open_cycles": {"args_required": "0", "funct": list_open_cycle, "help": "\nUsage: list_open_cycle\nDesc: List all open cycles."},
             "break": {"args_required": "0", "funct": take_a_break, "help": "\nUsage: break\nDesc: display funny pictures in browser."},
-            "add_chores": {"args_required": "234", "funct": add_chores, "help": "\nUsage: add_chores title frequency(days) context(opt) lastTime(opt, days)\nDesc: adding chores, the frequency enable the chores to pop up again every given days, for chores that would happen only once put 0 as frequency."}
+            "add_chores": {"args_required": "234", "funct": add_chores, "help": "\nUsage: add_chores title frequency(days) context(opt) lastTime(opt, days)\nDesc: adding chores, the frequency enable the chores to pop up again every given days, for chores that would happen only once put 0 as frequency."},
+            "Hello": {"args_required": "0", "funct": greetings, "help": "\nUsage: Say Hello ! its just polite"}
             }
 
 s = input("--> ")
