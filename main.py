@@ -83,6 +83,9 @@ def bulk_actions(file):
     return True
 
 def current_action_done(payload = {}):
+    if currentSession.currentTask == None:
+        print("No current task for now.")
+        return False
     currentSession.taskDone()
 
 def add_new_action(title, desc, time, motiv, openCycleId, deadLine = ""):

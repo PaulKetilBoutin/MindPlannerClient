@@ -53,6 +53,8 @@ class Session():
         return self.tasksAvailable[randint(0, maxi)]
 
     def taskDone(self):
+        if self.currentTask == None:
+            return False
         self.proudMetter += self.currentTask.motivationValue
         self.tasksDone.append(self.currentTask)
         check = self.conn.put("/nextAction/"+str(self.currentTask.id))
