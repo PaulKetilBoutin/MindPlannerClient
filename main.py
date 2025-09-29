@@ -43,14 +43,20 @@ def dailys_done(payload = []):
 
 
 def get_next_action(*payload):
+    currentMotiv = payload[0]
+    availableTime = payload[1]
     if currentSession.currentTask != None:
         print("Previous action is not done yet.")
         currentSession.currentTask.prettyPrint()
         return False
     if len(currentSession.tasksAvailable) != 0:
-        task = currentSession.getNextTask()
+        tmp = currentSession.getNextTask(currentMotiv, availableTime)
+        if tmp == False:
+            print("No task for the remaning motivation and or time.")
+            return False
+        task = tmp
     else:
-        res = conn.get('/nextAction/', {"motivation_mini": payload[0]})
+        res = conn.get('/nextAction/', {"motivation_mini": currentMotiv, "expected_duration": availableTime})
         if res[0] == False:
             print("Next action list Empty.")
             return False
@@ -58,12 +64,11 @@ def get_next_action(*payload):
         task = Task.chooseNextAction(res[1])
     if task:
         if currentSession.updateCurrentTask(task):
-            task.prettyPrint()
+            task.prettyPrint(currentSession.openCyles)
             return True
     return False
 
 def bulk_actions(file):
-    file = file[0]
     try:
         f = open(file)
         tmp = f.readline()

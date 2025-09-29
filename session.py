@@ -1,6 +1,7 @@
 from datetime import datetime
 from task import Task
 from random import randint
+import sys
 
 class Session():
     sessionBegin = ""
@@ -19,6 +20,8 @@ class Session():
         self.sessionBegin = datetime.now().strftime('%c')
         self.conn = conn
         tmp = conn.get("/openCycle/")
+        if tmp == False:
+            sys.exit("Server Down.")
         if tmp[0]:
             self.openCyles = tmp[1]
 
@@ -48,9 +51,15 @@ class Session():
             self.tasksAvailable.append(Task(i))
         print(self.tasksAvailable)
 
-    def getNextTask(self):
-        maxi = len(self.tasksAvailable) - 1
-        return self.tasksAvailable[randint(0, maxi)]
+    def getNextTask(self, currentMotiv, availableTime):
+        tmp = []
+        size = 0
+        for i in self.tasksAvailable:
+            if i['id'] <= currentMotiv and i["expected_duration"] <= availableTime: 
+                tmp.append(i)
+                size += 1
+        if size == 0: return False
+        return tmp[randint(0, size)]
 
     def taskDone(self):
         if self.currentTask == None:

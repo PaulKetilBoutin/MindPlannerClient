@@ -12,12 +12,12 @@ class Task():
         self.openCycleId = payload['openCycle_id']
 
 
-    def prettyPrint(self):
+    def prettyPrint(self, openCycle):
         print("\nCurrent Task:", self.title)
         print("\nDesc:", self.desc)
-        print("\n\nMotivation Value:", self.motivationValue)
-        print("\n\nId:", self.id)
-        print("\n\nOpenCycle Id:", self.openCycleId)
+        print("\nMotivation Value:", self.motivationValue)
+        print("\nId:", self.id)
+        print("\nOpenCycle Id:", self.openCycleId, openCycle[self.openCycleId - 1]["title"])
 
     def chooseNextAction(payload):
         maxi = len(payload) - 1
