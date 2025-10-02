@@ -10,6 +10,7 @@ class Task():
         self.done = False
         self.id = payload['id']
         self.openCycleId = payload['openCycle_id']
+        self.expectedDuration = payload["expected_duration"]
 
 
     def prettyPrint(self, openCycle):

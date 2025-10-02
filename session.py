@@ -47,7 +47,6 @@ class Session():
 
     def addTasksToQueue(self, payload):
         for i in payload:
-            print(i)
             self.tasksAvailable.append(Task(i))
         print(self.tasksAvailable)
 
@@ -55,10 +54,11 @@ class Session():
         tmp = []
         size = 0
         for i in self.tasksAvailable:
-            if i['id'] <= currentMotiv and i["expected_duration"] <= availableTime: 
+            if i.motivationValue <= int(currentMotiv) and i.expectedDuration <= int(availableTime): 
                 tmp.append(i)
                 size += 1
         if size == 0: return False
+        print(size, tmp)
         return tmp[randint(0, size)]
 
     def taskDone(self):
