@@ -58,6 +58,7 @@ class Session():
                 tmp.append(i)
                 size += 1
         if size == 0: return False
+        elif size == 1: return(tmp[0])
         print(size, tmp)
         return tmp[randint(0, size)]
 
