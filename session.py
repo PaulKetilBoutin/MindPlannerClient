@@ -60,7 +60,7 @@ class Session():
         if size == 0: return False
         elif size == 1: return(tmp[0])
         print(size, tmp)
-        return tmp[randint(0, size)]
+        return tmp[randint(0, size-1)]
 
     def taskDone(self):
         if self.currentTask == None:
